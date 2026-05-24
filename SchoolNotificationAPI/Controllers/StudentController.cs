@@ -6,11 +6,11 @@ namespace SchoolNotificationAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ManagerController : ControllerBase
+    public class StudentController : ControllerBase
     {
         private readonly IStudentService _service;
 
-        public ManagerController(IStudentService service)
+        public StudentController(IStudentService service)
         {
             _service = service;
         }
