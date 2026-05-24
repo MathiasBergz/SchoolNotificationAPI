@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="SchoolNotificationAPI.Application/SchoolNotificationAPI.Application.csproj" />
+    <Project Path="SchoolNotificationAPI.Data/SchoolNotificationAPI.Data.csproj" />
+    <Project Path="SchoolNotificationAPI.Domain/SchoolNotificationAPI.Domain.csproj" />
+    <Project Path="SchoolNotificationAPI.Infrastructure/SchoolNotificationAPI.Infrastructure.csproj" />
+    <Project Path="SchoolNotificationAPI/SchoolNotificationAPI.csproj" />
+  </Folder>
+</Solution>
