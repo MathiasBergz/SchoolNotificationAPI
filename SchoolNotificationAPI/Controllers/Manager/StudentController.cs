@@ -2,7 +2,7 @@
 using SchoolNotificationAPI.Application.Feature.StudentManagement.DTOs;
 using SchoolNotificationAPI.Application.Feature.StudentManagement.Interfaces;
 
-namespace SchoolNotificationAPI.Controllers
+namespace SchoolNotificationAPI.Controllers.Manager
 {
     [Route("api/[controller]")]
     [ApiController]
