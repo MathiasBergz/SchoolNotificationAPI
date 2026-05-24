@@ -109,47 +109,44 @@ namespace SchoolNotificationAPI.Infrastructure.Repositories
 
             await connection.OpenAsync();
 
-            var studentsSql = """
+            var sql = """
             SELECT
-                id,
-                name,
-                year,
-                group_class AS "GroupClass",
-                period,
-                created_at AS "CreatedAt"
-            FROM students;
+                s.id,
+                s.name,
+                s.year,
+                s.group_class AS "GroupClass",
+                s.period,
+                s.created_at AS "CreatedAt",
+                sc.id,
+                sc.student_id AS "StudentId",
+                sc.parent_name AS "ParentName",
+                sc.phone_number AS "PhoneNumber",
+                sc.is_main_contact AS "IsMainContact"
+            FROM students s
+            LEFT JOIN student_contacts sc ON sc.student_id = s.id;
             """;
 
-            var students = (
-                await connection.QueryAsync<Student>(studentsSql))
-                .ToList();
+            var studentDict = new Dictionary<Guid, Student>();
 
-            var contactsSql = """
-            SELECT
-                id,
-                student_id AS "StudentId",
-                parent_name AS "ParentName",
-                phone_number AS "PhoneNumber",
-                is_main_contact AS "IsMainContact"
-            FROM student_contacts;
-            """;
-
-            var contacts = (
-                await connection.QueryAsync<StudentContact>(contactsSql))
-                .ToList();
-
-            foreach (var student in students)
-            {
-                var studentContacts = contacts
-                    .Where(c => c.StudentId == student.Id);
-
-                foreach (var contact in studentContacts)
+            await connection.QueryAsync<Student, StudentContact, Student>(
+                sql,
+                (student, contact) =>
                 {
-                    student.AddContact(contact);
-                }
-            }
+                    if (!studentDict.TryGetValue(student.Id, out var existingStudent))
+                    {
+                        existingStudent = student;
+                        studentDict[student.Id] = existingStudent;
+                    }
 
-            return students;
+                    if (contact is not null)
+                        existingStudent.AddContact(contact);
+
+                    return existingStudent;
+                },
+                splitOn: "id"
+            );
+
+            return studentDict.Values;
         }
 
         public async Task<Student?> GetByIdAsync(Guid id)
