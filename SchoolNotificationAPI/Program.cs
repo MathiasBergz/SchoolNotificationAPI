@@ -1,17 +1,29 @@
 using SchoolNotificationAPI.Infrastructure.Persistence;
+using SchoolNotificationAPI.Infrastructure.Repositories;
+using SchoolNotificationAPI.Application.Interfaces.Repositories;
+using SchoolNotificationAPI.Application.Feature.StudentManagement.Interfaces;
+using SchoolNotificationAPI.Application.Feature.StudentManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddSingleton<DapperContext>();
+
+builder.Services.AddScoped<
+    IStudentRepository,
+    StudentRepository>();
+
+builder.Services.AddScoped<
+    IStudentService,
+    StudentService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

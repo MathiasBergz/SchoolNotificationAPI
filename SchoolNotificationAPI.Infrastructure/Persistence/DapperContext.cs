@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Npgsql;
-using System.Data;
 
 namespace SchoolNotificationAPI.Infrastructure.Persistence
 {
@@ -13,10 +12,11 @@ namespace SchoolNotificationAPI.Infrastructure.Persistence
             _configuration = configuration;
         }
 
-        public IDbConnection CreateConnection()
+        public NpgsqlConnection CreateConnection()
         {
             return new NpgsqlConnection(
-                _configuration.GetConnectionString("DefaultConnection"));
+                _configuration.GetConnectionString(
+                    "DefaultConnection"));
         }
     }
 }

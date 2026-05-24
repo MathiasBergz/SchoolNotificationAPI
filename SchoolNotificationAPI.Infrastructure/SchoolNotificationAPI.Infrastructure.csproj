@@ -17,8 +17,4 @@
     <ProjectReference Include="..\SchoolNotificationAPI.Domain\SchoolNotificationAPI.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
