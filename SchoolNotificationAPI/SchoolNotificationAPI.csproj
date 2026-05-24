@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -16,6 +16,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolNotificationAPI.Application\SchoolNotificationAPI.Application.csproj" />
+    <ProjectReference Include="..\SchoolNotificationAPI.Infrastructure\SchoolNotificationAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
