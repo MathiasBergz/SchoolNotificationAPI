@@ -1,9 +1,8 @@
-﻿using SchoolNotificationAPI.Application.Feature.StudentManagement.DTOs;
-using SchoolNotificationAPI.Application.Feature.StudentManagement.Interfaces;
-using SchoolNotificationAPI.Application.Interfaces.Repositories;
+﻿using SchoolNotificationAPI.Application.Feature.Students.Interfaces;
+using SchoolNotificationAPI.Application.Feature.Students.DTOs;
 using SchoolNotificationAPI.Domain.Entities;
 
-namespace SchoolNotificationAPI.Application.Feature.StudentManagement.Services
+namespace SchoolNotificationAPI.Application.Feature.Students.Services
 {
     public class StudentService : IStudentService
     {

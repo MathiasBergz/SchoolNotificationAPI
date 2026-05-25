@@ -1,6 +1,6 @@
-﻿using SchoolNotificationAPI.Application.Feature.StudentManagement.DTOs;
+﻿using SchoolNotificationAPI.Application.Feature.Students.DTOs;
 
-namespace SchoolNotificationAPI.Application.Feature.StudentManagement.Interfaces
+namespace SchoolNotificationAPI.Application.Feature.Students.Interfaces
 {
     public interface IStudentService
     {

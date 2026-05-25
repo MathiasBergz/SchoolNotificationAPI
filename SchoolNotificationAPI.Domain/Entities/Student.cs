@@ -50,5 +50,10 @@
             GroupClass = groupClass;
             Period = period;
         }
+
+        public void ClearContacts()
+        {
+            Contacts.Clear();
+        }
     }
 }

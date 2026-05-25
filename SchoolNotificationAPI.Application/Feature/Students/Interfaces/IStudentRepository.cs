@@ -1,6 +1,6 @@
 ﻿using SchoolNotificationAPI.Domain.Entities;
 
-namespace SchoolNotificationAPI.Application.Interfaces.Repositories;
+namespace SchoolNotificationAPI.Application.Feature.Students.Interfaces;
 
 public interface IStudentRepository
 {
@@ -13,4 +13,10 @@ public interface IStudentRepository
     Task UpdateAsync(Student student);
 
     Task DeleteAsync(Guid id);
+
+    Task<IEnumerable<Student>> GetTargetsAsync(
+    string period,
+    List<string>? years,
+    List<string>? groupClasses,
+    List<Guid>? studentIds);
 }

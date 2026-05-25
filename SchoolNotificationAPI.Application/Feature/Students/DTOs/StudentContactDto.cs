@@ -1,4 +1,4 @@
-﻿namespace SchoolNotificationAPI.Application.Feature.StudentManagement.DTOs
+﻿namespace SchoolNotificationAPI.Application.Feature.Students.DTOs
 {
     public class StudentContactDto
     {

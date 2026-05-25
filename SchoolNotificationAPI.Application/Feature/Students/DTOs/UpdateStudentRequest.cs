@@ -1,6 +1,6 @@
-﻿namespace SchoolNotificationAPI.Application.Feature.StudentManagement.DTOs
+﻿namespace SchoolNotificationAPI.Application.Feature.Students.DTOs
 {
-    public class RegisterStudentRequest
+    public class UpdateStudentRequest
     {
         public string Name { get; set; } = string.Empty;
 

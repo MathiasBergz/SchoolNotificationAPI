@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using SchoolNotificationAPI.Domain.Entities;
 using SchoolNotificationAPI.Infrastructure.Persistence;
-using SchoolNotificationAPI.Application.Interfaces.Repositories;
+using SchoolNotificationAPI.Application.Feature.Students.Interfaces;
 
 namespace SchoolNotificationAPI.Infrastructure.Repositories
 {
@@ -314,6 +314,84 @@ namespace SchoolNotificationAPI.Infrastructure.Repositories
                 transaction.Rollback();
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<Student>> GetTargetsAsync(
+        string period,
+        List<string>? years,
+        List<string>? groupClasses,
+        List<Guid>? studentIds)
+        {
+            using var connection = _context.CreateConnection();
+
+            await connection.OpenAsync();
+
+            var sql = """
+            SELECT
+                id,
+                name,
+                year,
+                group_class AS "GroupClass",
+                period,
+                created_at AS "CreatedAt"
+            FROM students
+            WHERE period = @Period
+            """;
+
+            if (years is not null && years.Any())
+            {
+                sql += " AND year = ANY(@Years)";
+            }
+
+            if (groupClasses is not null && groupClasses.Any())
+            {
+                sql += " AND group_class = ANY(@GroupClasses)";
+            }
+
+            if (studentIds is not null && studentIds.Any())
+            {
+                sql += " AND id = ANY(@StudentIds)";
+            }
+
+            var students = (
+                await connection.QueryAsync<Student>(
+                    sql,
+                    new
+                    {
+                        Period = period,
+                        Years = years?.ToArray(),
+                        GroupClasses = groupClasses?.ToArray(),
+                        StudentIds = studentIds?.ToArray()
+                    }))
+                .ToList();
+
+            var contactsSql = """
+            SELECT
+                id,
+                student_id AS "StudentId",
+                parent_name AS "ParentName",
+                phone_number AS "PhoneNumber",
+                is_main_contact AS "IsMainContact"
+            FROM student_contacts;
+            """;
+
+            var contacts = (
+                await connection.QueryAsync<StudentContact>(
+                    contactsSql))
+                .ToList();
+
+            foreach (var student in students)
+            {
+                var studentContacts = contacts
+                    .Where(c => c.StudentId == student.Id);
+
+                foreach (var contact in studentContacts)
+                {
+                    student.AddContact(contact);
+                }
+            }
+
+            return students;
         }
     }
 }

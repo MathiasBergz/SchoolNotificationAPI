@@ -1,8 +1,9 @@
+using SchoolNotificationAPI.Application.Feature.Notifications.Interfaces;
+using SchoolNotificationAPI.Application.Feature.Notifications.Services;
+using SchoolNotificationAPI.Application.Feature.Students.Interfaces;
+using SchoolNotificationAPI.Application.Feature.Students.Services;
 using SchoolNotificationAPI.Infrastructure.Persistence;
 using SchoolNotificationAPI.Infrastructure.Repositories;
-using SchoolNotificationAPI.Application.Interfaces.Repositories;
-using SchoolNotificationAPI.Application.Feature.StudentManagement.Interfaces;
-using SchoolNotificationAPI.Application.Feature.StudentManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,14 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     IStudentService,
     StudentService>();
+
+builder.Services.AddScoped<
+    INotificationRepository,
+    NotificationRepository>();
+
+builder.Services.AddScoped<
+    INotificationService,
+    NotificationService>();
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SchoolNotificationAPI.Application.Feature.StudentManagement.DTOs;
-using SchoolNotificationAPI.Application.Feature.StudentManagement.Interfaces;
+using SchoolNotificationAPI.Application.Feature.Students.DTOs;
+using SchoolNotificationAPI.Application.Feature.Students.Interfaces;
 
 namespace SchoolNotificationAPI.Controllers.Manager
 {
